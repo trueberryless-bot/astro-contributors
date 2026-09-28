@@ -1,20 +1,24 @@
 ---
-import { getAllContributors } from "../libs/getContributors";
+import { getGitHubContributors } from "../libs/github";
+import type { FormatLink } from "../libs/link";
+
 import FacePile from "./FacePile.astro";
 
-export interface Props {
+interface Props {
+  focusColor?: string;
+  formatLink?: FormatLink;
   githubRepo?: `${string}/${string}`;
   ignore?: string[];
-  focusColor?: string;
 }
 
 const {
+  focusColor,
+  formatLink,
   githubRepo = "withastro/docs",
   ignore,
-  focusColor,
-} = Astro.props as Props;
+} = Astro.props;
 
-const contributors = await getAllContributors(githubRepo, ignore);
+const contributors = await getGitHubContributors(githubRepo, ignore);
 ---
 
-<FacePile {contributors} {focusColor} />
+<FacePile {contributors} {focusColor} {formatLink} />

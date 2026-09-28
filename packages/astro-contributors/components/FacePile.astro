@@ -1,33 +1,45 @@
 ---
-import type { Contributor } from "../libs/getContributors";
+import {
+  type GitHubContributor,
+  getGitHubAvatarUrl,
+  getGitHubProfileUrl,
+} from "../libs/github";
+import { type FormatLink, getContributorLink } from "../libs/link";
+import { getStyleVariables } from "../libs/style";
 
-export interface Props {
-  contributors: Contributor[];
-  focusColor?: string;
+interface Props {
+  contributors: GitHubContributor[];
+  focusColor?: string | undefined;
+  formatLink?: FormatLink | undefined;
 }
 
-const { contributors, focusColor } = Astro.props as Props;
-const styleOverride = focusColor ? { "--avatar-focus-color": focusColor } : {};
+const { contributors, focusColor, formatLink } = Astro.props;
+
+const style = getStyleVariables({ "--avatar-focus-color": focusColor });
 ---
 
-<div style={styleOverride}>
+<div style={style}>
   <ul class="avatar-list">
-    {
-      contributors.map((item) => (
-        <li>
-          <a href={`https://github.com/${item.login}`}>
-            <img
-              alt={item.login}
-              title={item.login}
-              width="3rem"
-              height="3rem"
-              src={`https://avatars.githubusercontent.com/u/${item.id}?s=64`}
-              loading="lazy"
-            />
-          </a>
-        </li>
-      ))
-    }
+    {contributors.map((contributor) => (
+      <li>
+        <a
+          href={getContributorLink(
+            contributor.login,
+            getGitHubProfileUrl(contributor.login),
+            formatLink
+          )}
+        >
+          <img
+            alt={contributor.login}
+            title={contributor.login}
+            width="3rem"
+            height="3rem"
+            src={getGitHubAvatarUrl(contributor.id)}
+            loading="lazy"
+          />
+        </a>
+      </li>
+    ))}
   </ul>
 </div>
 
@@ -39,7 +51,6 @@ const styleOverride = focusColor ? { "--avatar-focus-color": focusColor } : {};
     --avatar-outline-width: 1px;
     --avatar-outline-offset: 0.08em;
 
-    /* Fallback chain: Global Var -> Component Prop -> Starlight Variable -> Default Blue */
     --local-accent: var(--avatar-focus-color, var(--sl-color-accent, #3b82f6));
 
     display: flex;
@@ -70,7 +81,6 @@ const styleOverride = focusColor ? { "--avatar-focus-color": focusColor } : {};
     border-radius: 50%;
     width: var(--avatar-size);
     height: var(--avatar-size);
-    /* Hide alt/title if Avatar image fails to load. */
     text-decoration: none;
     color: transparent;
   }
@@ -80,7 +90,6 @@ const styleOverride = focusColor ? { "--avatar-focus-color": focusColor } : {};
     height: 100%;
     object-fit: cover;
     background-color: var(--local-accent);
-    /* Indicates the contributor image boundaries for forced colors users, transparent is changed to a solid color */
     outline: 1px solid transparent;
   }
 

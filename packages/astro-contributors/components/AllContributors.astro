@@ -1,109 +1,79 @@
 ---
-import { getAllContributorsFromRc } from "../libs/getAllContributorsRc";
+import { getAllContributorsFromRc } from "../libs/all-contributors";
+import { getContributionEmoji } from "../libs/contributions";
+import { type FormatLink, getContributorLink } from "../libs/link";
+import { getStyleVariables } from "../libs/style";
 
-export interface Props {
-  focusColor?: string;
-  bgColor?: string;
-  borderColor?: string;
-  textColor?: string;
+interface Props {
   badgeBgColor?: string;
   badgeTextColor?: string;
+  bgColor?: string;
+  borderColor?: string;
+  focusColor?: string;
+  formatLink?: FormatLink;
+  textColor?: string;
 }
 
 const {
-  focusColor,
-  bgColor,
-  borderColor,
-  textColor,
   badgeBgColor,
   badgeTextColor,
-} = Astro.props as Props;
-
-const styleOverride = {
-  ...(focusColor && { "--ac-focus-color": focusColor }),
-  ...(bgColor && { "--ac-bg-color": bgColor }),
-  ...(borderColor && { "--ac-border-color": borderColor }),
-  ...(textColor && { "--ac-text-color": textColor }),
-  ...(badgeBgColor && { "--ac-badge-bg-color": badgeBgColor }),
-  ...(badgeTextColor && { "--ac-badge-text-color": badgeTextColor }),
-};
+  bgColor,
+  borderColor,
+  focusColor,
+  formatLink,
+  textColor,
+} = Astro.props;
 
 const contributors = getAllContributorsFromRc();
-
-const emojiMap: Record<string, string> = {
-  audio: "🔊",
-  a11y: "♿️",
-  bug: "🐛",
-  blog: "📝",
-  business: "💼",
-  code: "💻",
-  content: "🖋",
-  data: "🔣",
-  design: "🎨",
-  doc: "📖",
-  eventOrganizing: "📋",
-  example: "💡",
-  financial: "💵",
-  fundingFinding: "🔍",
-  ideas: "🤔",
-  infra: "🚇",
-  maintenance: "🚧",
-  mentoring: "🧑‍🏫",
-  platform: "📦",
-  plugin: "🔌",
-  projectManagement: "📆",
-  question: "💬",
-  research: "🔬",
-  review: "👀",
-  security: "🛡️",
-  tool: "🔧",
-  translation: "🌍",
-  test: "⚠️",
-  tutorial: "✅",
-  talk: "📢",
-  userTesting: "📓",
-  video: "📹",
-};
+const style = getStyleVariables({
+  "--ac-focus-color": focusColor,
+  "--ac-bg-color": bgColor,
+  "--ac-border-color": borderColor,
+  "--ac-text-color": textColor,
+  "--ac-badge-bg-color": badgeBgColor,
+  "--ac-badge-text-color": badgeTextColor,
+});
 ---
 
-{
-  contributors.length > 0 ? (
-    <div
-      class="all-contributors-grid"
-      style={Object.keys(styleOverride).length > 0 ? styleOverride : undefined}
-    >
-      {contributors.map((contributor) => (
-        <a
-          href={contributor.profile}
-          class="contributor-card"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img
-            src={contributor.avatar_url}
-            alt={contributor.name}
-            title={contributor.name}
-            width="64"
-            height="64"
-            loading="lazy"
-          />
-          <div class="contributor-info">
-            <span class="contributor-name">{contributor.name}</span>
-            <div class="contributor-badges">
-              {contributor.contributions.map((type) => (
-                <span class="badge" title={`Contribution: ${type}`}>
-                  {emojiMap[type] || "✨"}&nbsp;{type}
-                </span>
-              ))}
-            </div>
+{contributors.length > 0 ? (
+  <div class="all-contributors-grid" style={style}>
+    {contributors.map((contributor) => (
+      <a
+        href={getContributorLink(
+          contributor.login,
+          contributor.profile,
+          formatLink
+        )}
+        class="contributor-card"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src={contributor.avatar_url}
+          alt={contributor.name}
+          title={contributor.name}
+          width="64"
+          height="64"
+          loading="lazy"
+        />
+        <div class="contributor-info">
+          <span class="contributor-name">{contributor.name}</span>
+          <div class="contributor-badges">
+            {contributor.contributions.map((type) => (
+              <span class="badge" title={`Contribution: ${type}`}>
+                {getContributionEmoji(type)}&nbsp;{type}
+              </span>
+            ))}
           </div>
-        </a>
-      ))}
-    </div>
-  ) : (
-    <p>No .all-contributorsrc file found or no contributors listed.</p>
-  )
-}
+        </div>
+      </a>
+    ))}
+  </div>
+) : (
+  <p>
+    No <code>.all-contributorsrc</code> file found or no contributors listed.
+  </p>
+)}
 
 <style>
   .all-contributors-grid {

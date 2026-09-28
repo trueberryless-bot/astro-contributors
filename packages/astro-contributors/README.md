@@ -1,12 +1,12 @@
 # `astro-contributors`
 
-Display a list of all contributors to your project
+Astro components to display all contributors to your project.
 
 ## Documentation
 
 Want to get started immediately?
 
-Check out the `astro-contributors` getting started guide.
+Check out the [`astro-contributors` getting started guide](https://astro-contributors.netlify.app/getting-started/).
 
 ## License
 

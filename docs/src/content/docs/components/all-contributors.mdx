@@ -1,0 +1,156 @@
+---
+title: All Contributors
+description: Display contributors automatically from your .all-contributorsrc file.
+---
+
+import Preview from "../../../components/component-preview.astro";
+import { AllContributors } from "astro-contributors"
+
+Display all contributors of your project in a card grid following the [All Contributors](https://allcontributors.org/en/) specification.
+
+<Preview>
+
+<AllContributors slot="preview" />
+
+</Preview>
+
+## Requirements
+
+For this component to render successfully, you must have a valid `.all-contributorsrc` file located in your project root (or any parent directory relative to where Astro is running).
+
+The component automatically crawls up the directory tree to locate this file, so it works seamlessly even in monorepos. If the file is missing or contains no contributors, it will render a fallback message.
+
+## Import
+
+```tsx
+import { AllContributors } from "astro-contributors";
+```
+
+## Usage
+
+Render a card grid with all contributors loaded from the `.all-contributorsrc` file in your project directory using the `<AllContributors>` component. No parameters are required.
+
+<Preview>
+
+```mdx
+import { AllContributors } from "astro-contributors"
+
+<AllContributors />
+```
+
+<Fragment slot="markdoc">
+
+```markdoc
+{% allcontributors /%}
+```
+
+</Fragment>
+
+<AllContributors slot="preview" />
+
+</Preview>
+
+## `<AllContributors>` Props
+
+The component outputs a CSS Grid that automatically adjusts the number of columns based on the screen width (minimum `140px` per card). Out of the box, it automatically inherits your [Starlight](https://starlight.astro.build) theme variables. You can override these using the optional props below.
+
+All color props accept any valid CSS color value (Hex, RGB, HSL, etc.).
+
+### `bgColor`
+
+**Type**: `string` <br />
+**Optional**
+
+Overrides the background color of the individual contributor cards.
+
+### `borderColor`
+
+**Type**: `string` <br />
+**Optional**
+
+Overrides the border color of the contributor cards, the avatar background, and the badge borders.
+
+### `textColor`
+
+**Type**: `string` <br />
+**Optional**
+
+Overrides the primary text color used for the contributor's name.
+
+### `badgeBgColor`
+
+**Type**: `string` <br />
+**Optional**
+
+Overrides the background color of the contribution type badges.
+
+### `badgeTextColor`
+
+**Type**: `string` <br />
+**Optional**
+
+Overrides the text and emoji color inside the contribution type badges.
+
+### `focusColor`
+
+**Type**: `string` <br />
+**Optional**
+
+Overrides the accent color used for the hover state outline and focus rings.
+
+### `formatLink`
+
+**Type**: `(username: string) => string` <br />
+**Optional**
+
+Overrides the default profile link behavior. Receives the contributor's GitHub username and returns a custom URL string.
+
+## Examples
+
+### Custom Colors
+
+<Preview>
+
+```mdx
+import { AllContributors } from "astro-contributors"
+
+<AllContributors
+  bgColor="#1e1e1e"
+  borderColor="#333333"
+  textColor="#ffffff"
+  badgeBgColor="#ff5733"
+  badgeTextColor="#111111"
+  focusColor="#ff5733"
+/>
+```
+
+<AllContributors
+  slot="preview"
+  bgColor="#1e1e1e"
+  borderColor="#333333"
+  textColor="#ffffff"
+  badgeBgColor="#ff5733"
+  badgeTextColor="#111111"
+  focusColor="#ff5733"
+/>
+
+</Preview>
+
+### Custom Links
+
+<Preview>
+
+```mdx
+import { AllContributors } from "astro-contributors"
+
+<AllContributors
+  formatLink={(username) => `https://github.com/your-org/your-repo/commits?author=${username}`}
+/>
+```
+
+<AllContributors
+  slot="preview"
+  formatLink={(username) => `https://github.com/your-org/your-repo/commits?author=${username}`}
+/>
+
+</Preview>
