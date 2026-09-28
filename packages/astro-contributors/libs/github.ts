@@ -59,10 +59,13 @@ function getGitHubHeaders(token: string | undefined): Record<string, string> {
 
   if (!token) return headers;
 
-  return {
-    ...headers,
-    Authorization: `Basic ${Buffer.from(token, "binary").toString("base64")}`,
-  };
+  return { ...headers, Authorization: getGitHubAuthorization(token) };
+}
+
+function getGitHubAuthorization(token: string) {
+  if (!token.includes(":")) return `Bearer ${token}`;
+
+  return `Basic ${Buffer.from(token, "binary").toString("base64")}`;
 }
 
 function warnGitHubFetchError(repo: string, error: unknown) {
