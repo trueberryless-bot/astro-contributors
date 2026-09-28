@@ -4,8 +4,14 @@ import { defineConfig } from "astro/config";
 
 import markdocGrammar from "./grammars/markdoc.tmLanguage.json";
 
+const site =
+  (process.env.CONTEXT === "deploy-preview" ||
+  process.env.CONTEXT === "branch-deploy"
+    ? process.env.DEPLOY_PRIME_URL
+    : process.env.URL) ?? "https://astro-contributors.netlify.app";
+
 export default defineConfig({
-  site: "https://astro-contributors.netlify.app",
+  site,
   redirects: {
     "/all-contributors": "/components/all-contributors/",
     "/parameters": "/components/contributor-list/",
@@ -13,6 +19,22 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Astro Contributors",
+      head: [
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:image",
+            content: new URL("og.png", site).href,
+          },
+        },
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:image:alt",
+            content: "Display a list of all contributors to your project.",
+          },
+        },
+      ],
       editLink: {
         baseUrl:
           "https://github.com/trueberryless-org/astro-contributors/edit/main/docs/",
