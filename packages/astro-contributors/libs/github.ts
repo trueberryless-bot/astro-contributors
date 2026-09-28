@@ -31,6 +31,7 @@ async function fetchGitHubContributors(
       ...(await fetchGitHubContributors(repo, page + 1)),
     ];
   } catch (error) {
+    if (page > 1) throw error;
     warnGitHubFetchError(repo, error);
     return [];
   }
