@@ -16,6 +16,34 @@
       "contributions": ["code", "maintenance"]
     },
     {
+      "login": "stavros-k",
+      "name": "Stavros Kois",
+      "avatar_url": "https://github.com/stavros-k.png",
+      "profile": "https://github.com/stavros-k",
+      "contributions": ["ideas"]
+    },
+    {
+      "login": "dragomano",
+      "name": "Bugo",
+      "avatar_url": "https://github.com/dragomano.png",
+      "profile": "https://github.com/dragomano",
+      "contributions": ["ideas"]
+    },
+    {
+      "login": "IEvangelist",
+      "name": "IEvangelist",
+      "avatar_url": "https://github.com/IEvangelist.png",
+      "profile": "https://github.com/IEvangelist",
+      "contributions": ["bug"]
+    },
+    {
+      "login": "JimMadge",
+      "name": "JimMadge",
+      "avatar_url": "https://github.com/JimMadge.png",
+      "profile": "https://github.com/JimMadge",
+      "contributions": ["code"]
+    },
+    {
       "login": "github-actions[bot]",
       "name": "github-actions[bot]",
       "avatar_url": "https://avatars.githubusercontent.com/in/15368?s=60&v=4",
@@ -49,13 +77,6 @@
       "avatar_url": "https://avatars.githubusercontent.com/in/347564?s=60&v=4",
       "profile": "https://github.com/apps/coderabbitai",
       "contributions": ["review"]
-    },
-    {
-      "login": "IEvangelist",
-      "name": "IEvangelist",
-      "avatar_url": "https://github.com/IEvangelist.png",
-      "profile": "https://github.com/IEvangelist",
-      "contributions": ["code"]
     }
   ],
   "contributorsPerLine": 7

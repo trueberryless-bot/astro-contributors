@@ -6,15 +6,17 @@ export interface Props {
   githubRepo?: `${string}/${string}`;
   ignore?: string[];
   focusColor?: string;
+  formatLink?: (username: string) => string;
 }
 
 const {
   githubRepo = "withastro/docs",
   ignore,
   focusColor,
+  formatLink,
 } = Astro.props as Props;
 
 const contributors = await getAllContributors(githubRepo, ignore);
 ---
 
-<FacePile {contributors} {focusColor} />
+<FacePile {contributors} {focusColor} {formatLink} />

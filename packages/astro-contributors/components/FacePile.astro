@@ -4,9 +4,10 @@ import type { Contributor } from "../libs/getContributors";
 export interface Props {
   contributors: Contributor[];
   focusColor?: string;
+  formatLink?: (username: string) => string;
 }
 
-const { contributors, focusColor } = Astro.props as Props;
+const { contributors, focusColor, formatLink } = Astro.props as Props;
 const styleOverride = focusColor ? { "--avatar-focus-color": focusColor } : {};
 ---
 
@@ -15,7 +16,7 @@ const styleOverride = focusColor ? { "--avatar-focus-color": focusColor } : {};
     {
       contributors.map((item) => (
         <li>
-          <a href={`https://github.com/${item.login}`}>
+          <a href={formatLink ? formatLink(item.login) : `https://github.com/${item.login}`}>
             <img
               alt={item.login}
               title={item.login}

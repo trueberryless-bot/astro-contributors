@@ -22,6 +22,10 @@ hero:
     - text: Get Started
       link: /getting-started/
       icon: right-arrow
+    - text: Explore components
+      link: /components/
+      icon: right-arrow
+      variant: minimal
 ---
 
 import { Card, CardGrid } from "@astrojs/starlight/components";
@@ -33,7 +37,10 @@ import { Card, CardGrid } from "@astrojs/starlight/components";
         Check the [getting started guide](/getting-started/) for installation instructions.
     </Card>
     <Card title="Use it" icon="rocket">
-        Use the `ContributorList` component to display a list of all contributors to your project.
+        Use the [`ContributorList` component](/components/contributor-list) to display a list of all contributors to your project.
+    </Card>
+    <Card title="All Contributors" icon="database">
+        The [`AllContributors` component](/components/all-contributors) offers compability with the [All Contributors specification](https://allcontributors.org/en/).
     </Card>
 </CardGrid>
 

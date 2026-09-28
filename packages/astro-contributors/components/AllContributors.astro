@@ -8,6 +8,7 @@ export interface Props {
   textColor?: string;
   badgeBgColor?: string;
   badgeTextColor?: string;
+  formatLink?: (username: string) => string;
 }
 
 const {
@@ -17,6 +18,7 @@ const {
   textColor,
   badgeBgColor,
   badgeTextColor,
+  formatLink,
 } = Astro.props as Props;
 
 const styleOverride = {
@@ -74,7 +76,7 @@ const emojiMap: Record<string, string> = {
     >
       {contributors.map((contributor) => (
         <a
-          href={contributor.profile}
+          href={formatLink ? formatLink(contributor.login) : contributor.profile}
           class="contributor-card"
           target="_blank"
           rel="noopener noreferrer"
@@ -101,7 +103,7 @@ const emojiMap: Record<string, string> = {
       ))}
     </div>
   ) : (
-    <p>No .all-contributorsrc file found or no contributors listed.</p>
+    <p>No <code>.all-contributorsrc</code> file found or no contributors listed.</p>
   )
 }
 

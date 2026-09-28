@@ -13,12 +13,12 @@ export default defineConfig({
       },
       customCss: ["./src/styles/custom.css"],
       sidebar: [
+        { slug: "getting-started" },
         {
-          label: "Start Here",
+          label: "Components",
           items: [
-            { slug: "getting-started" },
-            { slug: "parameters" },
-            { slug: "all-contributors" },
+            { slug: "components/contributor-list" },
+            { slug: "components/all-contributors" },
           ],
         },
       ],
