@@ -1,36 +1,42 @@
 {
   "name": "astro-contributors",
   "version": "0.9.0",
-  "description": "Display a list of all contributors to your project",
-  "keywords": [
-    "starlight",
-    "docs",
-    "contributors",
-    "component"
-  ],
-  "homepage": "https://astro-contributors.netlify.app/",
-  "bugs": {
-    "url": "https://github.com/trueberryless-org/astro-contributors/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/trueberryless-org/astro-contributors.git",
-    "directory": "packages/astro-contributors"
-  },
   "license": "MIT",
+  "description": "Astro components to display all contributors to your project.",
   "author": "trueberryless <trueberryless@gmail.com> (https://felixs.dev)",
   "type": "module",
   "exports": {
     ".": "./index.ts",
     "./package.json": "./package.json"
   },
+  "devDependencies": {
+    "astro": "^7.3.5"
+  },
   "peerDependencies": {
     "astro": "^5.0.0 || ^6.0.0 || ^7.0.0"
   },
   "engines": {
-    "node": ">=22.23.1"
+    "node": ">=22.12.0"
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "sideEffects": false,
+  "keywords": [
+    "astro",
+    "astro-component",
+    "withastro",
+    "starlight",
+    "contributors",
+    "all-contributors",
+    "github",
+    "documentation"
+  ],
+  "homepage": "https://astro-contributors.netlify.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trueberryless-org/astro-contributors.git",
+    "directory": "packages/astro-contributors"
+  },
+  "bugs": "https://github.com/trueberryless-org/astro-contributors/issues"
 }
